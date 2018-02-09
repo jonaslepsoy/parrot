@@ -10,11 +10,16 @@ var rollingSpider = new RollingSpider();
 var io = require('socket.io')();
 io.on('connection', function(client){
     client.on('list', function(data){
-        console.log('Fikk melding om list');
-
-    });
-    client.on('test', function(data){
-        console.log('data',data);
+        console.log('Got request for drone list. Searching...');
+        rollingSpider.connect(function(){
+            rollingSpider.setup(function() {
+                rollingSpider.flatTrim();
+                rollingSpider.startPing();
+                rollingSpider.flatTrim();
+                console.log('Connected to drone', rollingSpider.name);
+                io.emit('drone connected', rollingSpider.name);
+            });
+        });
     });
     client.on('disconnect', function(){
         console.log('Client disconnected');
