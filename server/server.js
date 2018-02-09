@@ -11,7 +11,7 @@ var io = require('socket.io')();
 io.on('connection', function(client){
     client.on('list', function(data){
         console.log('Fikk melding om list');
-        
+
     });
     client.on('test', function(data){
         console.log('data',data);
