@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "socket.io": "latest",
-    "rolling-spider": "latest"
+    "keypress": "^0.2.1",
+    "parrot-minidrone": "^1.1.1",
+    "rolling-spider": "latest",
+    "socket.io": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

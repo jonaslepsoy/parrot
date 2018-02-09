@@ -4,24 +4,40 @@
 //uuid: 'Mambo_614243'
 //uuid: 'Mambo_612553'
 //uuid: 'Mambo_612554'
-var RollingSpider = require("rolling-spider");
-var rollingSpider = new RollingSpider();
+var Drone = require('parrot-minidrone');
+var drone = new Drone({
+    autoConnect: true
+});
 
 var io = require('socket.io')();
-io.on('connection', function(client){
-    client.on('list', function(data){
-        console.log('Got request for drone list. Searching...');
-        rollingSpider.connect(function(){
-            rollingSpider.setup(function() {
-                rollingSpider.flatTrim();
-                rollingSpider.startPing();
-                rollingSpider.flatTrim();
-                console.log('Connected to drone', rollingSpider.name);
-                io.emit('drone connected', rollingSpider.name);
-            });
-        });
+
+var connectedClients = {};
+
+drone.on('connected', () => {
+    console.log('connected to something!');
+    drone.takeOff();
+    connectedClients.forEach(function(client) {
+        client.emit('Drone ' + drone.name + ' taking off!');
     });
+});
+
+drone.on('flightStatusChange', (status) => {
+    console.log('Drone status changed: ', status);
+    if (status === 'hovering') {
+        drone.land();
+        connectedClients.forEach(function(client) {
+            client.emit('Drone ' + drone.name + ' taking off!');
+        });
+        process.exit();
+    }
+});
+
+io.on('connection', function(client){
+    connectedClients[client] = client;
+    console.log('Client connected.');
+
     client.on('disconnect', function(){
+        delete connectedClients[client];
         console.log('Client disconnected');
     });
 });
