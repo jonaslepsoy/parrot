@@ -9,28 +9,11 @@ var RollingSpider = require("rolling-spider");
 
 var io = require('socket.io')();
 
+const drone = {};
+
 var connectedClients = {};
 
 var knownDevices = [];
-
-/*drone.on('connected', () => {
-    console.log('connected to something!');
-    drone.takeOff();
-    connectedClients.forEach(function(client) {
-        client.emit('Drone ' + drone.name + ' taking off!');
-    });
-});
-
-drone.on('flightStatusChange', (status) => {
-    console.log('Drone status changed: ', status);
-    if (status === 'hovering') {
-        drone.land();
-        connectedClients.forEach(function(client) {
-            client.emit('Drone ' + drone.name + ' taking off!');
-        });
-        process.exit();
-    }
-});*/
 
 io.on('connection', function(client){
     connectedClients[client] = client;
@@ -65,11 +48,52 @@ io.on('connection', function(client){
         }
     });
 
+    client.on('connectToDrone', function (name) {
+        drone[name] = new RollingSpider(name);
+        console.log('Connecting to ' + name);
+        drone[name].connect(function() {
+            drone[name].setup(function() {
+                drone[name].flatTrim();
+                drone[name].startPing();
+                drone[name].flatTrim();
+                console.log('Connected to drone', drone[name].name);
+                client.emit('connected', name);
+            });
+        });
+    });
 
+    client.on('takeOffAll', function () {
+        Object.keys(drone).forEach((d) => {
+            drone[d].takeOff();
+        })
+    });
+
+    client.on('getDownAll', function () {
+        Object.keys(drone).forEach((d) => {
+            drone[d].land();
+        })
+    });
+
+    client.on('takeOff', function (name) {
+        drone[name].takeOff();
+    });
+    client.on('getDown', function (name) {
+        drone[name].land();
+    });
 
     client.on('disconnect', function(){
         delete connectedClients[client];
         console.log('Client disconnected');
+    });
+
+    client.on('forwardAll', function () {
+        Object.keys(drone).forEach((d) => {
+            drone[d].forward({steps: 2});
+        })
+    });
+
+    client.on('forward', function (name) {
+        drone[name].forward({steps: 2});
     });
 });
 
