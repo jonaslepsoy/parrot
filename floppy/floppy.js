@@ -1,4 +1,4 @@
-const Drone = require('parrot-minidrone');
+const Drone = require('./lib/parrot-minidrone');
 const ioHook = require('iohook');
 
 // flight variables
