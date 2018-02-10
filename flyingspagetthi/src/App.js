@@ -11,15 +11,12 @@ class App extends Component {
             <div className="App">
                 <header className="App-header">
                     <img src={drone} className="App-logo" alt="logo"/>
-                    <h1 className="App-title">Velkommen til Flappy Drone!</h1>
+                    <h1 className="App-title">Game of Drones</h1>
                 </header>
                 <p className="App-intro">
                 </p>
                 <ShowAndConnect />
                 <script src="%PUBLIC_URL%/socket.io.js"/>
-                <footer className="App-footer">
-                    Laget av Gruppe 2 med Jonas, Lars, Ingrid og Sondre
-                </footer>
             </div>
         );
     }

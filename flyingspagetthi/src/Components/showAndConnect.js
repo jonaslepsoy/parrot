@@ -28,7 +28,7 @@ class ShowAndConnect extends Component {
         socket.on('searchResponse', function (drone) {
             const drones = this.state.drones;
             drones[drone.name] = drone;
-            console.log('setting state with drone ', drone.name);
+            // console.log('setting state with drone ', drone.name);
             this.setState({
                 drones: drones
             });
@@ -36,14 +36,10 @@ class ShowAndConnect extends Component {
     }
 
     _showDrones() {
-        const droneList = this.state.drones.map((drone) =>
-            (
-                <DroneItem
-                    key={drone.name}
-                    drone={drone}
-                />
-            )
-        );
+        const droneList = Object.keys(this.state.drones).map((droneName) => {
+            // console.log('drone', this.state.drones[droneName]);
+            return <DroneItem key={this.state.drones[droneName].name} drone={this.state.drones[droneName]}/>
+        });
         return (
             <ul>
                 { droneList }
