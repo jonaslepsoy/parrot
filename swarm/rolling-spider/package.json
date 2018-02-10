@@ -1,0 +1,102 @@
+{
+  "_from": "rolling-spider@latest",
+  "_id": "rolling-spider@1.7.0",
+  "_inBundle": false,
+  "_integrity": "sha1-+Sn14GXCJSQtU5uho6HInZRZRdk=",
+  "_location": "/rolling-spider",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "rolling-spider@latest",
+    "name": "rolling-spider",
+    "escapedName": "rolling-spider",
+    "rawSpec": "latest",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/rolling-spider/-/rolling-spider-1.7.0.tgz",
+  "_shasum": "f929f5e065c225242d539ba1a3a1c89d945945d9",
+  "_spec": "rolling-spider@latest",
+  "_where": "/Users/jonas.lepsoy/dev/projects/parrot/swarm",
+  "author": {
+    "name": "Jack Watson-Hamblin",
+    "email": "info@fluffyjack.com",
+    "url": "https://motioninmotion.tv/"
+  },
+  "bugs": {
+    "url": "https://github.com/FluffyJack/node-rolling-spider/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "debug": "^2.1.1",
+    "keypress": "^0.2.1",
+    "lodash": "3.9.3",
+    "logitech-dual-action-controller": "git+https://github.com/voodootikigod/node-logitech-dual-action-controller.git",
+    "noble": "^1.8.0"
+  },
+  "deprecated": false,
+  "description": "A library for sending BLE commands to a Parrot Rolling Spider drone",
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-eta": "^0.0.9",
+    "mocha": "2.2.5",
+    "should": "6.0.3",
+    "sinon": "1.14.1",
+    "temporal": "^0.4.0"
+  },
+  "homepage": "https://github.com/voodootikigod/node-rolling-spider#readme",
+  "keywords": [
+    "bluetooth",
+    "ble",
+    "parrot",
+    "rolling-spider",
+    "drone",
+    "quadcopter",
+    "multicopter",
+    "flight"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "Jack Watson-Hamblin",
+      "email": "info@fluffyjack.com"
+    },
+    {
+      "name": "Chris Williams",
+      "email": "voodootikigod@gmail.com"
+    },
+    {
+      "name": "Chris Taylor",
+      "email": "christhebaron@gmail.com",
+      "url": "http://christhebaron.co.uk"
+    },
+    {
+      "name": "Linda Nichols",
+      "email": "lynnaloo@gmail.com"
+    }
+  ],
+  "name": "rolling-spider",
+  "optionalDependencies": {
+    "logitech-dual-action-controller": "git+https://github.com/voodootikigod/node-logitech-dual-action-controller.git"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/voodootikigod/node-rolling-spider.git"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .js",
+    "test": "mocha"
+  },
+  "version": "1.7.0"
+}

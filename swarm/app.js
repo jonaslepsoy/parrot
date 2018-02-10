@@ -1,9 +1,7 @@
 'use strict';
 
 var keypress = require('keypress');
-var Drone = require('rolling-spider');
-var Swarm = require('rolling-spider').Swarm;
-var noble = require('noble');
+var Swarm = require('./rolling-spider').Swarm;
 
 var ACTIVE = true;
 var STEPS = 2;
