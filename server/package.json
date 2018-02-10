@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "iohook": "^0.1.11",
     "keypress": "^0.2.1",
     "parrot-minidrone": "^1.1.1",
     "rolling-spider": "latest",
