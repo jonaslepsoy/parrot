@@ -5,6 +5,10 @@
   "dependencies": {
     "iohook": "^0.1.11",
     "keypress": "^0.2.1",
+    "parrot-minidrone": "^1.1.1",
+    "rolling-spider": "latest",
+    "socket.io": "latest",
+    "temporal": "^0.6.0"
   },
   "scripts": {}
 }
