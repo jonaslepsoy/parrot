@@ -13,6 +13,10 @@ constructor(props) {
     this._getDownAll = this._getDownAll.bind(this);
     this._forward = this._forward.bind(this);
     this._forwardAll = this._forwardAll.bind(this);
+    this._rightAll = this._rightAll.bind(this);
+    this._leftAll = this._leftAll.bind(this);
+    this._right = this._right.bind(this);
+    this._left = this._left.bind(this);
 
     this.state = {
         connected: false
@@ -58,6 +62,22 @@ constructor(props) {
         socket.emit('forward', name);
     }
 
+    _rightAll() {
+        socket.emit('rightAll');
+    }
+
+    _right(name) {
+        socket.emit('right', name);
+    }
+
+    _leftAll() {
+        socket.emit('leftAll');
+    }
+
+    _left(name) {
+        socket.emit('left', name);
+    }
+
 
     render() {
         return (
@@ -71,6 +91,10 @@ constructor(props) {
                 <button onClick={() => this._getDownAll() }>GET DOOOWN! All</button>
                 <button onClick={() => this._forwardAll() }>FORWARD ALL</button>
                 <button onClick={() => this._forward(this.props.drone.name) }>FOrward</button>
+                <button onClick={() => this._rightAll() }>right ALL</button>
+                <button onClick={() => this._right(this.props.drone.name) }>right</button>
+                <button onClick={() => this._leftAll() }>left ALL</button>
+                <button onClick={() => this._left(this.props.drone.name) }>left</button>
             </div>
         );
     }
