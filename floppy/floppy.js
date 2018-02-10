@@ -36,6 +36,8 @@ let timeout = null;
 ioHook.on("keydown", event => {
     const keyName = event && event.keycode ? event.keycode : false;
 
+    console.log("keydown ", keyName)
+
     if (!keyName) {
         return;
     }
@@ -101,11 +103,23 @@ ioHook.on("keydown", event => {
         case 32:    //d
             flightParams.yaw = yawSensitivity;
             break;
+        case 16:    //q
+            drone.animate('flipLeft');
+            break
+        case 18:    //e
+            drone.animate('flipRight');
+            break
+        case 19:    //r
+            drone.animate('flipFront');
+            break;
+        case 33:    //f
+            drone.animate('flipBack');
+            break;
         case 20:    //t
             drone.takeoffOrLand();
             break;
-        case 33:    //f
-            drone.trim();
+        case 38:    //t
+            drone.land();
             break;
         case 1:     //esc
             drone.emergency();
