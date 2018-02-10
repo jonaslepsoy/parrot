@@ -118,6 +118,9 @@ ioHook.on("keydown", event => {
         case 20:    //t
             drone.takeoffOrLand();
             break;
+        case 38:    //t
+            drone.land();
+            break;
         case 1:     //esc
             drone.emergency();
             break;
