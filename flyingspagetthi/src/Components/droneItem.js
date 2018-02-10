@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:3000');
+const socket = io('http://10.168.79.18:3000');
 
 class DroneItem extends Component {
 constructor(props) {
@@ -17,6 +17,8 @@ constructor(props) {
     this._leftAll = this._leftAll.bind(this);
     this._right = this._right.bind(this);
     this._left = this._left.bind(this);
+    this._forwardFlipAll = this._forwardFlipAll.bind(this);
+    this._backAll = this._backAll.bind(this);
 
     this.state = {
         connected: false
@@ -77,7 +79,14 @@ constructor(props) {
     _left(name) {
         socket.emit('left', name);
     }
-
+    
+    _forwardFlipAll() {
+        socket.emit('forwardFlipAll');
+    }
+        
+    _backAll() {
+        socket.emit('backAll');
+    }
 
     render() {
         return (
@@ -95,6 +104,8 @@ constructor(props) {
                 <button onClick={() => this._right(this.props.drone.name) }>right</button>
                 <button onClick={() => this._leftAll() }>left ALL</button>
                 <button onClick={() => this._left(this.props.drone.name) }>left</button>
+                <button onClick={() => this._forwardFlipAll() }>forwardFlip ALL</button>
+                <button onClick={() => this._backAll() }>back ALL</button>
             </div>
         );
     }

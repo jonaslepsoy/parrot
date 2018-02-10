@@ -3,7 +3,7 @@ import DroneItem from './droneItem';
 
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:3000');
+const socket = io('http://10.168.79.18:3000');
 
 class ShowAndConnect extends Component {
     constructor(props) {
