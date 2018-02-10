@@ -95,6 +95,25 @@ io.on('connection', function(client){
     client.on('forward', function (name) {
         drone[name].forward({steps: 2});
     });
+    client.on('rightAll', function () {
+        Object.keys(drone).forEach((d) => {
+            drone[d].right({steps: 2});
+        })
+    });
+
+    client.on('right', function (name) {
+        drone[name].right({steps: 2});
+    });
+
+    client.on('leftAll', function () {
+        Object.keys(drone).forEach((d) => {
+            drone[d].left({steps: 2});
+        })
+    });
+
+    client.on('left', function (name) {
+        drone[name].left({steps: 2});
+    });
 });
 
 io.listen(3000);
