@@ -4,16 +4,16 @@
 //uuid: 'Mambo_614243'
 //uuid: 'Mambo_612553'
 //uuid: 'Mambo_612554'
-var Drone = require('parrot-minidrone');
-var drone = new Drone({
-    autoConnect: true
-});
+var noble = require('noble');
+var RollingSpider = require("rolling-spider");
 
 var io = require('socket.io')();
 
 var connectedClients = {};
 
-drone.on('connected', () => {
+var knownDevices = [];
+
+/*drone.on('connected', () => {
     console.log('connected to something!');
     drone.takeOff();
     connectedClients.forEach(function(client) {
@@ -30,11 +30,42 @@ drone.on('flightStatusChange', (status) => {
         });
         process.exit();
     }
-});
+});*/
 
 io.on('connection', function(client){
     connectedClients[client] = client;
     console.log('Client connected.');
+
+    client.on('searchForDrones', function(){
+        console.log('Fikk melding om search');
+        // client.emit('searchResponse', rollingSpider);
+        if (noble.state === 'poweredOn') {
+            start();
+        } else {
+            noble.on('stateChange', start);
+        }
+
+        function start () {
+            noble.startScanning();
+
+            noble.on('discover', function(peripheral) {
+                if (!RollingSpider.isDronePeripheral(peripheral)) {
+                    return; // not a rolling spider
+                }
+
+                var details = {
+                    name: peripheral.advertisement.localName,
+                    uuid: peripheral.uuid,
+                    rssi: peripheral.rssi
+                };
+
+                knownDevices[details.name] = details;
+                client.emit('searchResponse', details);
+            });
+        }
+    });
+
+
 
     client.on('disconnect', function(){
         delete connectedClients[client];
