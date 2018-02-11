@@ -76,6 +76,30 @@ class Drone extends EventEmitter {
     }
 
     /**
+     * Perform the drone's get gun state command
+     * @return {undefined}
+     */
+    getGunState() {
+        return this.network.getGunState();
+    }
+
+    /**
+     * Perform the drone's fire command
+     * @return {undefined}
+     */
+    fire() {
+        this.network.writeFire();
+    }
+
+    /**
+     * Change piloting mode
+     * @return {undefined}
+     */
+    changePilotMode() {
+        this.network.changePilotMode();
+    }
+
+    /**
      * Sets the drone's Max Altitude
      *
      * @param {Integer} altitude Increase or decrease the max altitude 0.5 to 10

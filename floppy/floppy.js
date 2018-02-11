@@ -6,7 +6,7 @@ const temporal = require("temporal");
 const forwardSensitivity = 70;
 const rotationSensitivity = 100;
 const altitudeSensitivity = 70;
-const yawSensitivity = 100;
+const yawSensitivity = 120;
 const flightSpeed = 10;
 const jumpsSpeed = 100;
 var playing = false;
@@ -23,9 +23,14 @@ var flightParams = {
 const drone = new Drone({
     autoconnect: false,
     droneFilter: 'Mambo_612519'
+    //droneFilter: 'Mambo_612477'
 });
 
 drone.connect();
+
+drone.on('connected', function(){
+    console.log('connected');
+});
 
 
 // listen for the "keydown" event
@@ -102,6 +107,16 @@ ioHook.on("keydown", event => {
             playing = false;
             drone.takeoffOrLand();
             break;
+        case 57:    //space
+            if(!playing) {
+                console.log('firing');
+                drone.fire();
+            }
+            break;
+        /*case 57: //space
+            if(!playing) {
+                drone.
+            }*/
         case 38:    //t
             drone.land();
             break;

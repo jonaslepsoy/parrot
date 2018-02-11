@@ -9,7 +9,9 @@ const MD_CLASSES = {
     ANIMATION: 0x04,
     MEDIA_RECORD: 0x06,
     PILOTING_SETTINGS: 0x08,
-    NAVIGATION_DATA_STATE: 0x18,
+    USB_ACCESSORY_STATE: 0x15,
+    USB_ACCESSORY: 0x10,
+    NAVIGATION_DATA_STATE: 0x18
 };
 const MD_METHODS = {
     TRIM: 0x00,
@@ -23,6 +25,9 @@ const MD_METHODS = {
     MAX_VERTICAL_SPEED: 0x00,
     MAX_ROTATION_SPEED: 0x01,
     DRONE_POSITION: 0x00,
+    GUN_STATE: 0x02,
+    GUN_CONTROL: 0x02,
+    PREFERRED_PILOTING_MODE: 0x04
 };
 const MD_DATA_TYPES = {
     ACK: 0x01,
@@ -130,7 +135,7 @@ class MiniDroneBtAdapter extends EventEmitter {
         if (this.steps[uuid] >= 255) {
             this.steps[uuid] = 0;
         }
-
+        //console.log('writing: ', JSON.stringify(buffer,null,2));
         this.getCharacteristic(uuid).write(buffer, true);
     }
 
@@ -142,6 +147,11 @@ class MiniDroneBtAdapter extends EventEmitter {
      */
     createBuffer(uuid, args = []) {
         const buffArray = [MD_DATA_TYPES.DATA, ++this.steps[uuid] & 0xFF, MD_DEVICE_TYPE];
+        return new Buffer(buffArray.concat(args));
+    }
+
+    createBufferWithAck(uuid, args = []) {
+        const buffArray = [MD_DATA_TYPES.DATA_WITH_ACK, ++this.steps[uuid] & 0xFF, MD_DEVICE_TYPE];
         return new Buffer(buffArray.concat(args));
     }
 
@@ -182,6 +192,16 @@ class MiniDroneBtAdapter extends EventEmitter {
 
         this.write(FLIGHT_PARAMS_KEY, buffer);
         this.emit('flightParamChange', this.flightParams);
+    }
+
+    /**
+     * Convenience method for writing the fire command
+     * @return {undefined}
+     */
+    writeFire() {
+        const buffer = this.createBufferWithAck(COMMAND_KEY, [MD_CLASSES.USB_ACCESSORY, MD_METHODS.GUN_CONTROL, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
+        this.write(COMMAND_KEY, buffer);
+        Logger.info('Fire command called with buffer ', buffer);
     }
 
     /**
