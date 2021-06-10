@@ -42,7 +42,7 @@
     }
   ],
   "dependencies": {
-    "dualshock-controller": "^0.6.9",
+    "dualshock-controller": "^0.7.1",
     "keypress": "^0.2.1",
     "noble": "^1.6.0",
     "winston": "^2.2.0"
