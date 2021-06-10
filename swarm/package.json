@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "keypress": "^0.2.1",
-    "noble": "^1.9.0",
+    "noble": "^1.9.1",
     "rolling-spider": "^1.7.0"
   },
   "scripts": {}
