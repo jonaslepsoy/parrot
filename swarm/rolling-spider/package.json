@@ -35,7 +35,7 @@
   "dependencies": {
     "debug": "^2.1.1",
     "keypress": "^0.2.1",
-    "lodash": "3.9.3",
+    "lodash": "3.10.1",
     "logitech-dual-action-controller": "git+https://github.com/voodootikigod/node-logitech-dual-action-controller.git",
     "noble": "^1.8.0"
   },
